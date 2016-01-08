@@ -1,14 +1,8 @@
 package orange.save.export.sql.es;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import orange.save.export.sql.model.NoSQLWriter;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
+import orange.save.export.sql.model.NoSQLWriter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,6 +18,11 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.FailedCommunicationException;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+
 public class ESWriter extends NoSQLWriter {
 	
 	private static Log log = LogFactory.getLog(ESWriter.class);
@@ -37,16 +36,16 @@ public class ESWriter extends NoSQLWriter {
 	BulkRequestBuilder bulkRequest;
 	
 	@Override
-	public void initConnection(ResourceBundle rb) {
+	public void initConnection(ResourceBundle resourceBundle) {
 		Settings settings = ImmutableSettings.settingsBuilder()
-        	.put("cluster.name", rb.getString("es.cluster.name")).build();
+        	.put("cluster.name", resourceBundle.getString("es.cluster.name")).build();
 		client = new TransportClient(settings);
-		String host[] = StringUtils.split(rb.getString("es.hosts"), ",");
+		String host[] = StringUtils.split(resourceBundle.getString("es.hosts"), ",");
 		for (int i = 0; i < host.length; i++) {
 			((TransportClient) client).addTransportAddress(new InetSocketTransportAddress(host[i], 9300));
 		}
 		bulkRequest = client.prepareBulk();
-		setIndexProperties(rb.getString("es.index.name"), rb.getString("es.index.type"));
+		setIndexProperties(resourceBundle.getString("es.index.name"), resourceBundle.getString("es.index.type"));
 	}
 	
 	void setIndexProperties(String index_name, String index_type) {
@@ -70,8 +69,8 @@ public class ESWriter extends NoSQLWriter {
 			long t2 = System.currentTimeMillis();
 			BulkResponse response = action.actionGet();
 		    for (Iterator<BulkItemResponse> iterator = response.iterator(); iterator.hasNext();) {
-		      BulkItemResponse e = (BulkItemResponse) iterator.next();
-		      if (e.isFailed()) 
+		      BulkItemResponse bulkItemResponse = (BulkItemResponse) iterator.next();
+		      if (bulkItemResponse.isFailed())
 		        throw new FailedCommunicationException("Insertion to ES failed.");
 		    }
 			log.info("Time taken to Write "+ bulkRequest.numberOfActions() + " documents to ES :" + ((t2-t1))  + " ms");

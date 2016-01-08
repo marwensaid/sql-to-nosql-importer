@@ -43,6 +43,6 @@ public class FieldTypeParser {
 		return String.valueOf(o);
 	}
 	public static boolean getBoolean(Object o) {
-		return new Boolean(o.toString());
+		return Boolean.valueOf(o.toString());
 	}
 }
