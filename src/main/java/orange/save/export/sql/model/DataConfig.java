@@ -121,27 +121,27 @@ public class DataConfig {
       proc = getStringAttribute(element, PROCESSOR, null);
       dataSource = getStringAttribute(element, DATA_SRC, null);
       allAttributes = getAllAttributes(element);
-      List<Element> n = getChildNodes(element, "field");
-      for (Element elem : n)  {
-        Field field = new Field(elem);
+      List<Element> elementList = getChildNodes(element, "field");
+      for (Element element1 : elementList)  {
+        Field field = new Field(element1);
         fields.add(field);
-        List<Field> l = colNameVsField.get(field.column);
-        if(l == null) l = new ArrayList<Field>();
+        List<Field> fieldList = colNameVsField.get(field.column);
+        if(fieldList == null) fieldList = new ArrayList<Field>();
         boolean alreadyFound = false;
-        for (Field f : l) {
-          if(f.getName().equals(field.getName())) {
+        for (Field field1 : fieldList) {
+          if(field1.getName().equals(field.getName())) {
             alreadyFound = true;
             break;
           }
         }
-        if(!alreadyFound) l.add(field);
-        colNameVsField.put(field.column, l);
+        if(!alreadyFound) fieldList.add(field);
+        colNameVsField.put(field.column, fieldList);
       }
-      n = getChildNodes(element, "entity");
-      if (!n.isEmpty())
+      elementList = getChildNodes(element, "entity");
+      if (!elementList.isEmpty())
         entities = new ArrayList<Entity>();
-      for (Element elem : n)
-        entities.add(new Entity(elem));
+      for (Element element1 : elementList)
+        entities.add(new Entity(element1));
 
     }
 
@@ -163,10 +163,10 @@ public class DataConfig {
     public Script() {
     }
 
-    public Script(Element e) {
-      this.language = getStringAttribute(e, "language", "JavaScript");
+    public Script(Element element) {
+      this.language = getStringAttribute(element, "language", "JavaScript");
       StringBuilder buffer = new StringBuilder();
-      String script = getTxt(e, buffer);
+      String script = getTxt(element, buffer);
       if (script != null)
         this.text = script.trim();
     }
@@ -206,14 +206,14 @@ public class DataConfig {
     public Field() {
     }
 
-    public Field(Element e) throws IOException {
-      this.name = getStringAttribute(e, "name", null);
-      this.column = getStringAttribute(e, "column", null);
+    public Field(Element element) throws IOException {
+      this.name = getStringAttribute(element, "name", null);
+      this.column = getStringAttribute(element, "column", null);
       if (column == null) {
         throw new IOException();
       }
-      this.boost = Float.parseFloat(getStringAttribute(e, "boost", "1.0f"));
-      allAttributes.putAll(getAllAttributes(e));
+      this.boost = Float.parseFloat(getStringAttribute(element, "boost", "1.0f"));
+      allAttributes.putAll(getAllAttributes(element));
     }
 
     public String getName() {
@@ -224,22 +224,22 @@ public class DataConfig {
 
   }
 
-  public void readFromXml(Element e) throws IOException {
-    List<Element> n = getChildNodes(e, "document");
-    if (n.isEmpty()) {
+  public void readFromXml(Element element1) throws IOException {
+    List<Element> elementList = getChildNodes(element1, "document");
+    if (elementList.isEmpty()) {
       throw new IOException();
     }
-    document = new Document(n.get(0));
+    document = new Document(elementList.get(0));
 
-    n = getChildNodes(e, SCRIPT);
-    if (!n.isEmpty()) {
-      script = new Script(n.get(0));
+    elementList = getChildNodes(element1, SCRIPT);
+    if (!elementList.isEmpty()) {
+      script = new Script(elementList.get(0));
     }
 
     // Add the provided evaluators
-    n = getChildNodes(e, FUNCTION);
-    if (!n.isEmpty()) {
-      for (Element element : n) {
+    elementList = getChildNodes(element1, FUNCTION);
+    if (!elementList.isEmpty()) {
+      for (Element element : elementList) {
         String func = getStringAttribute(element, NAME, null);
         String clz = getStringAttribute(element, CLASS, null);
         if (func == null || clz == null){
@@ -249,15 +249,15 @@ public class DataConfig {
         }
       }
     }
-    n = getChildNodes(e, DATA_SRC);
-    if (!n.isEmpty()) {
-      for (Element element : n) {
-        Properties p = new Properties();
+    elementList = getChildNodes(element1, DATA_SRC);
+    if (!elementList.isEmpty()) {
+      for (Element element : elementList) {
+        Properties properties = new Properties();
         HashMap<String, String> attrs = getAllAttributes(element);
         for (Map.Entry<String, String> entry : attrs.entrySet()) {
-          p.setProperty(entry.getKey(), entry.getValue());
+          properties.setProperty(entry.getKey(), entry.getValue());
         }
-        dataSources.put(p.getProperty("name"), p);
+        dataSources.put(properties.getProperty("name"), properties);
       }
     }
     if(dataSources.get(null) == null){
@@ -268,47 +268,47 @@ public class DataConfig {
     }
   }
 
-  private static String getStringAttribute(Element e, String name, String def) {
-    String r = e.getAttribute(name);
-    if (r == null || "".equals(r.trim()))
-      r = def;
-    return r;
+  private static String getStringAttribute(Element element, String name, String def) {
+    String elementAttribute = element.getAttribute(name);
+    if (elementAttribute == null || "".equals(elementAttribute.trim()))
+      elementAttribute = def;
+    return elementAttribute;
   }
 
   private static HashMap<String, String> getAllAttributes(Element e) {
-    HashMap<String, String> m = new HashMap<String, String>();
+    HashMap<String, String> map = new HashMap<String, String>();
     NamedNodeMap nnm = e.getAttributes();
     for (int i = 0; i < nnm.getLength(); i++) {
-      m.put(nnm.item(i).getNodeName(), nnm.item(i).getNodeValue());
+      map.put(nnm.item(i).getNodeName(), nnm.item(i).getNodeValue());
     }
-    return m;
+    return map;
   }
 
-  public static String getTxt(Node elem, StringBuilder buffer) {
-    if (elem.getNodeType() != Node.CDATA_SECTION_NODE) {
-      NodeList childs = elem.getChildNodes();
-      for (int i = 0; i < childs.getLength(); i++) {
-        Node child = childs.item(i);
+  public static String getTxt(Node node, StringBuilder stringBuilder) {
+    if (node.getNodeType() != Node.CDATA_SECTION_NODE) {
+      NodeList nodeList = node.getChildNodes();
+      for (int i = 0; i < nodeList.getLength(); i++) {
+        Node child = nodeList.item(i);
         short childType = child.getNodeType();
         if (childType != Node.COMMENT_NODE
                 && childType != Node.PROCESSING_INSTRUCTION_NODE) {
-          getTxt(child, buffer);
+          getTxt(child, stringBuilder);
         }
       }
     } else {
-      buffer.append(elem.getNodeValue());
+      stringBuilder.append(node.getNodeValue());
     }
 
-    return buffer.toString();
+    return stringBuilder.toString();
   }
 
-  public static List<Element> getChildNodes(Element e, String byName) {
+  public static List<Element> getChildNodes(Element element, String byName) {
     List<Element> result = new ArrayList<Element>();
-    NodeList l = e.getChildNodes();
-    for (int i = 0; i < l.getLength(); i++) {
-      if (e.equals(l.item(i).getParentNode())
-              && byName.equals(l.item(i).getNodeName()))
-        result.add((Element) l.item(i));
+    NodeList nodeList = element.getChildNodes();
+    for (int i = 0; i < nodeList.getLength(); i++) {
+      if (element.equals(nodeList.item(i).getParentNode())
+              && byName.equals(nodeList.item(i).getNodeName()))
+        result.add((Element) nodeList.item(i));
     }
     return result;
   }
