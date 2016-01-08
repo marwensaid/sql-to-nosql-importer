@@ -6,23 +6,23 @@ import java.util.ResourceBundle;
 
 public class NoSQLWriter {
 
-	private String primaryKey = null;
-	
-	public void setPrimaryKey(String primaryKey) {
-		this.primaryKey = primaryKey;
-	}
+    private String primaryKey = null;
 
-	public String getPrimaryKey() {
-		return primaryKey;
-	}
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
+    }
 
-	public void writeToNoSQL(List<Map<String, Object>> entityList) throws Exception {
-	}
-	
-	public void initConnection(ResourceBundle rb) throws Exception {
-	}
-	
-	public void close() {		
-	}
-	
+    public String getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void writeToNoSQL(List<Map<String, Object>> entityList) throws Exception {
+    }
+
+    public void initConnection(ResourceBundle rb) throws Exception {
+    }
+
+    public void close() {
+    }
+
 }
