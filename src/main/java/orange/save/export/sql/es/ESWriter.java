@@ -1,11 +1,11 @@
-package net.sathis.export.sql.es;
+package orange.save.export.sql.es;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import net.sathis.export.sql.model.NoSQLWriter;
+import orange.save.export.sql.model.NoSQLWriter;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 

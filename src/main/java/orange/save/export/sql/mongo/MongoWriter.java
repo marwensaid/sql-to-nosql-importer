@@ -1,16 +1,15 @@
-package net.sathis.export.sql.mongo;
+package orange.save.export.sql.mongo;
+
+import com.mongodb.*;
+import orange.save.export.sql.model.NoSQLWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import com.mongodb.*;
-import net.sathis.export.sql.model.NoSQLWriter;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class MongoWriter extends NoSQLWriter {
 	

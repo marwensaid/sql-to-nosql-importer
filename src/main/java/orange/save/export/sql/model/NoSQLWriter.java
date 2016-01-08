@@ -1,4 +1,4 @@
-package net.sathis.export.sql.model;
+package orange.save.export.sql.model;
 
 import java.util.List;
 import java.util.Map;

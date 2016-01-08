@@ -1,11 +1,11 @@
-package net.sathis.export.sql;
+package orange.save.export.sql;
 
-import net.sathis.export.sql.couch.CouchWriter;
-import net.sathis.export.sql.es.ESWriter;
-import net.sathis.export.sql.model.DataConfig;
-import net.sathis.export.sql.model.DataStoreType;
-import net.sathis.export.sql.model.NoSQLWriter;
-import net.sathis.export.sql.mongo.MongoWriter;
+import orange.save.export.sql.couch.CouchWriter;
+import orange.save.export.sql.es.ESWriter;
+import orange.save.export.sql.model.DataConfig;
+import orange.save.export.sql.model.DataStoreType;
+import orange.save.export.sql.model.NoSQLWriter;
+import orange.save.export.sql.mongo.MongoWriter;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -1,10 +1,10 @@
-package net.sathis.export.sql;
+package orange.save.export.sql;
 
-import net.sathis.export.sql.model.DataConfig.Entity;
-import net.sathis.export.sql.model.DataConfig.Field;
-import net.sathis.export.sql.model.DataStoreType;
-import net.sathis.export.sql.model.FieldType;
-import net.sathis.export.sql.model.FieldTypeParser;
+import orange.save.export.sql.model.DataConfig.Entity;
+import orange.save.export.sql.model.DataConfig.Field;
+import orange.save.export.sql.model.DataStoreType;
+import orange.save.export.sql.model.FieldType;
+import orange.save.export.sql.model.FieldTypeParser;
 import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
@@ -14,11 +14,6 @@ import java.sql.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-
-
-
-
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one or more

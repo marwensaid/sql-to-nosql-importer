@@ -1,16 +1,8 @@
-package net.sathis.export.sql.couch;
+package orange.save.export.sql.couch;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import net.sathis.export.sql.model.NoSQLWriter;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
+import orange.save.export.sql.model.NoSQLWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntity;
@@ -22,6 +14,13 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 public class CouchWriter extends NoSQLWriter {
   

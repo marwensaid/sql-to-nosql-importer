@@ -1,4 +1,4 @@
-package net.sathis.export.sql.model;
+package orange.save.export.sql.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
