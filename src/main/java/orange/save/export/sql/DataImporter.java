@@ -50,8 +50,8 @@ public class DataImporter {
 		    return config;
     }
 	
-	public void setWriter(NoSQLWriter writer) {
-		this.writer = writer;
+	public void setWriter(NoSQLWriter noSQLWriter) {
+		this.writer = noSQLWriter;
 	}
 
 	public NoSQLWriter getWriter() {
@@ -70,10 +70,10 @@ public class DataImporter {
 		}
 	}
 
-	public DataImporter(ResourceBundle rb) throws Exception {
-		dataStoreType = DataStoreType.valueOf(rb.getString("dataStoreType").toUpperCase());
+	public DataImporter(ResourceBundle resourceBundle) throws Exception {
+		dataStoreType = DataStoreType.valueOf(resourceBundle.getString("dataStoreType").toUpperCase());
 		findDataStoreWriter();
-		getWriter().initConnection(rb);
+		getWriter().initConnection(resourceBundle);
 	}
 
     private String getXmlFile(String path) {
@@ -95,7 +95,7 @@ public class DataImporter {
 				}
 				doFullImport();
 			} else {
-				log.error("Configuration files are missing !!!!!!!!.......");
+				log.error("Configuration files are missing !");
 			}
 	  }
 	  
@@ -116,9 +116,9 @@ public class DataImporter {
 	  private  void loadDataConfig(InputSource configFile) {
 
 		    try {
-		      DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		      DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		      
-		      DocumentBuilder builder = dbf.newDocumentBuilder();
+		      DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
 		      Document document;
 		      try {
 		        document = builder.parse(configFile);

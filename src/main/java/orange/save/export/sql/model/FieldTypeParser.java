@@ -10,13 +10,13 @@ public class FieldTypeParser {
         
 		Date date = (Date) o;
 		
-        SimpleDateFormat df = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssz" );
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssz" );
         
-        TimeZone tz = TimeZone.getTimeZone( "UTC" );
+        TimeZone timeZone = TimeZone.getTimeZone( "UTC" );
         
-        df.setTimeZone( tz );
+        simpleDateFormat.setTimeZone( timeZone );
 
-        String output = df.format( date );
+        String output = simpleDateFormat.format( date );
 
         int inset0 = 9;
         
