@@ -24,14 +24,14 @@ public class MongoWriter extends NoSQLWriter {
 	private static Log log = LogFactory.getLog(MongoWriter.class);
 	
 	@Override
-	public void initConnection(ResourceBundle rb) throws UnknownHostException, MongoException {
-		if (rb.getString("mongo.useAuth").equalsIgnoreCase("true")) {
-			initConnection(rb.getString("mongo.host"), rb.getString("mongo.db") ,
-					rb.getString("mongo.user"), rb.getString("mongo.password"));
+	public void initConnection(ResourceBundle resourceBundle) throws UnknownHostException, MongoException {
+		if (resourceBundle.getString("mongo.useAuth").equalsIgnoreCase("true")) {
+			initConnection(resourceBundle.getString("mongo.host"), resourceBundle.getString("mongo.db") ,
+					resourceBundle.getString("mongo.user"), resourceBundle.getString("mongo.password"));
 		} else {
-			initConnection( rb.getString("mongo.host"), rb.getString("mongo.db") );
+			initConnection( resourceBundle.getString("mongo.host"), resourceBundle.getString("mongo.db") );
 		}
-		initCollection(rb.getString("mongo.collection"));
+		initCollection(resourceBundle.getString("mongo.collection"));
 	}
 	
 	private void initCollection(String name) {
@@ -39,16 +39,16 @@ public class MongoWriter extends NoSQLWriter {
 	}
 	
 	public void initConnection(String url, String dbName) throws UnknownHostException, MongoException {
-		Mongo m = new Mongo(url);
-		db = m.getDB(dbName);
+		Mongo mongo = new Mongo(url);
+		db = mongo.getDB(dbName);
 	}
 	public void initConnection(String url, String dbName, String user, String password) throws UnknownHostException, MongoException {
-		Mongo m = new Mongo(url);
-		db = m.getDB(dbName);
+		Mongo mongo = new Mongo(url);
+		db = mongo.getDB(dbName);
 		
 		if (!db.authenticate(user, password.toCharArray())) {
-			log.error("Couldn't Authenticate MongoDB!!!!!!.........");
-			throw new MongoException("Couldn't Authenticate !!!!!!.........");
+			log.error("Couldn't Authenticate MongoDB !");
+			throw new MongoException("Couldn't Authenticate !");
 		}
 	}
 	
