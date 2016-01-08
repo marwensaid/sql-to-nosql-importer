@@ -1,4 +1,4 @@
-package orange.save.export.sql.es;
+package orange.save.export.sql.elasticsearch;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class ESWriter extends NoSQLWriter {
+public class ElasticSearchWriter extends NoSQLWriter {
 	
-	private static Log log = LogFactory.getLog(ESWriter.class);
+	private static Log log = LogFactory.getLog(ElasticSearchWriter.class);
 	
 	Client client = null;
 	

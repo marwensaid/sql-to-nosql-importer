@@ -1,7 +1,7 @@
 package orange.save.export.sql;
 
 import orange.save.export.sql.couch.CouchWriter;
-import orange.save.export.sql.es.ESWriter;
+import orange.save.export.sql.elasticsearch.ElasticSearchWriter;
 import orange.save.export.sql.model.DataConfig;
 import orange.save.export.sql.model.DataStoreType;
 import orange.save.export.sql.model.NoSQLWriter;
@@ -62,7 +62,7 @@ public class DataImporter {
 		if (getDataStoreType().equals(DataStoreType.MONGO)) {
 			writer = new MongoWriter();
 		} else if (getDataStoreType().equals(DataStoreType.ES)) {
-			writer = new ESWriter();
+			writer = new ElasticSearchWriter();
 		} else if(getDataStoreType().equals(DataStoreType.COUCH)) { 
 		  writer = new CouchWriter();
 		} else {
